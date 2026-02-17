@@ -1,27 +1,41 @@
-name: Playwright Tests
+name: Playwright Regression Tests
+
 on:
-  push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
+  schedule:
+    # Runs every day at 8 AM UTC — adjust as needed
+    - cron: '0 8 * * *'
+  workflow_dispatch: # allows manual trigger
+
 jobs:
   test:
-    timeout-minutes: 60
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: lts/*
-    - name: Install dependencies
-      run: npm ci
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
-    - name: Run Playwright tests
-      run: npx playwright test
-    - uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
-      with:
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 30
+      # 1️⃣ Checkout code
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      # 2️⃣ Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      # 3️⃣ Install dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # 4️⃣ Install Playwright browsers
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      # 5️⃣ Run Playwright regression tests (your npm script)
+      - name: Run regression tests
+        run: npm run regression
+
+      # 6️⃣ Upload HTML report as artifact
+      - name: Upload Playwright report
+        uses: actions/upload-artifact@v3
+        with:
+          name: playwright-report
+          path: playwright-report/
