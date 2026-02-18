@@ -30,7 +30,7 @@ jobs:
 
       # 5️⃣ Run Playwright tests in headless mode
       - name: Run Playwright tests
-        run: npx playwright test --reporter=html --continue-on-failure
+        run: npx playwright test --reporter=html
 
       # 6️⃣ Send HTML report via email (always runs)
       - name: Send Email Report
