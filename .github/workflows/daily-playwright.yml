@@ -1,9 +1,16 @@
+name: Daily Playwright Tests
+
+on:
+  schedule:
+    - cron: '0 13 * * *'   # Every day at 1:00 PM UTC
+  workflow_dispatch:        # Allows manual trigger
+
 jobs:
   run-tests:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout repository
+      # 1️⃣ Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -34,7 +41,7 @@ jobs:
           server_port: 587
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
-          from: "vesne.naumovska@hotmail.com"
+          from: "vesne.naumovska@hotmail.com"   # Required field
           to: "vesne.naumovska@hotmail.com"
           subject: "Daily Playwright Test Report"
           body: "Hi, the daily Playwright test run has completed. See attached HTML report."
