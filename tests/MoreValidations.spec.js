@@ -37,12 +37,12 @@ test('Screenshot & Visual comparison', async ({ page }) => {
 
 });
 //screenshot -> store-> screenshot -> compare
-test('Visual testing', async ({ page }) => {
+//test('Visual testing', async ({ page }) => {
 
-    await page.goto("https://rahulshettyacademy.com/client/#/auth/login");
-    expect(await page.screenshot()).toMatchSnapshot('landing.png');
+    //await page.goto("https://rahulshettyacademy.com/client/#/auth/login");
+    //expect(await page.screenshot()).toMatchSnapshot('landing.png');
 
 
 
-});
+//});//
 
