@@ -1,16 +1,9 @@
-name: Daily Playwright Tests
-
-on:
-  schedule:
-    - cron: '0 13 * * *'   # every day at 1:00 PM UTC
-  workflow_dispatch:        # allows manual trigger
-
 jobs:
   run-tests:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout the repository
+      # 1️⃣ Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -28,9 +21,9 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install
 
-      # 5️⃣ Run Playwright tests in headless mode, continue on failure
+      # 5️⃣ Run Playwright tests in headless mode
       - name: Run Playwright tests
-        run: npx playwright test --reporter=html --headless --continue-on-failure
+        run: npx playwright test --reporter=html --continue-on-failure
 
       # 6️⃣ Send HTML report via email (always runs)
       - name: Send Email Report
@@ -41,7 +34,8 @@ jobs:
           server_port: 587
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
+          from: "vesne.naumovska@hotmail.com"
+          to: "vesne.naumovska@hotmail.com"
           subject: "Daily Playwright Test Report"
           body: "Hi, the daily Playwright test run has completed. See attached HTML report."
-          to: "vesne.naumovska@hotmail.com"
           attachments: "playwright-report/html-report/*"
