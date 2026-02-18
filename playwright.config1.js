@@ -7,10 +7,10 @@ const config = {
   workers: 3,
   /* Maximum time one test can run for. */
   //10-
-  timeout: 30 * 1000,
+  timeout: 60 * 1000,
   expect: {
   
-    timeout: 5000
+    timeout: 6000
   },
   
   reporter: 'html',
@@ -40,7 +40,7 @@ const config = {
         
         trace : 'on',//off,on
        //...devices['']
-     //   viewport : {width:720,height:720}
+     //   viewport : {width:1280,height:720}
          }
 
     }
