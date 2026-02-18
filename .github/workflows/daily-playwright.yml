@@ -1,30 +1,39 @@
-
 name: Daily Playwright Tests
 
 on:
   schedule:
+    # Runs every day at 1:00 PM UTC
     - cron: '0 13 * * *'
-  workflow_dispatch:
+  workflow_dispatch: # allows manual trigger
 
 jobs:
   run-tests:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout repository
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # 2️⃣ Set up Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
+      # 3️⃣ Install dependencies
       - name: Install dependencies
         run: npm install
 
+      # 4️⃣ Install Playwright browsers
+      - name: Install Playwright browsers
+        run: npx playwright install
+
+      # 5️⃣ Run Playwright tests and generate HTML report
       - name: Run Playwright tests
         run: npx playwright test --reporter=html
 
+      # 6️⃣ Send HTML report via email
       - name: Send Email Report
         uses: dawidd6/action-send-mail@v3
         with:
