@@ -42,7 +42,7 @@ for(const data of dataset)
  });
 }
 
- customtest.only (`Client App login`, async ({page,testDataForOrder})=>
+ customtest(`Client App login`, async ({page,testDataForOrder})=>
  {
    const poManager = new POManager(page);
     //js file- Login js, DashboardPage
